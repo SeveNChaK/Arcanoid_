@@ -1,0 +1,90 @@
+
+Arcanoid.png
+size: 2048,2048
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+background
+  rotate: false
+  xy: 2, 968
+  size: 800, 600
+  orig: 800, 600
+  offset: 0, 0
+  index: -1
+ball
+  rotate: false
+  xy: 2, 2
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+block
+  rotate: false
+  xy: 1106, 936
+  size: 75, 30
+  orig: 75, 30
+  offset: 0, 0
+  index: -1
+dialog
+  rotate: false
+  xy: 2, 64
+  size: 400, 300
+  orig: 400, 300
+  offset: 0, 0
+  index: -1
+down
+  rotate: false
+  xy: 2, 22
+  size: 120, 40
+  orig: 120, 40
+  offset: 0, 0
+  index: -1
+menu_background
+  rotate: false
+  xy: 2, 366
+  size: 800, 600
+  orig: 800, 600
+  offset: 0, 0
+  index: -1
+platform
+  rotate: false
+  xy: 1606, 1552
+  size: 150, 16
+  orig: 150, 16
+  offset: 0, 0
+  index: -1
+records_background
+  rotate: false
+  xy: 804, 968
+  size: 800, 600
+  orig: 800, 600
+  offset: 0, 0
+  index: -1
+text_field
+  rotate: false
+  xy: 804, 906
+  size: 300, 60
+  orig: 300, 60
+  offset: 0, 0
+  index: -1
+text_pointer
+  rotate: false
+  xy: 1606, 1501
+  size: 3, 49
+  orig: 3, 49
+  offset: 0, 0
+  index: -1
+unchecked
+  rotate: false
+  xy: 404, 324
+  size: 120, 40
+  orig: 120, 40
+  offset: 0, 0
+  index: -1
+up
+  rotate: false
+  xy: 804, 864
+  size: 120, 40
+  orig: 120, 40
+  offset: 0, 0
+  index: -1

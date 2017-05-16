@@ -1,0 +1,21 @@
+{
+  "com.badlogic.gdx.graphics.Color": {
+    "white": { "r": 1, "g": 1, "b": 1, "a": 1}
+  },
+  "com.badlogic.gdx.graphics.g2d.BitmapFont": {
+    "white": {"file": "arial-15.fnt"}
+  },
+  "com.badlogic.gdx.scenes.scene2d.utils.Drawable": {
+    "background": "exit_off",
+    "stageBackground": "exit_on"
+  },
+  "com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle":{
+    "default": {"up": "play_button_off", "down": "play_button_on", "font": "white"}
+  },
+  "com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
+    "default": { "font": "white", "fontColor": "white" }
+  },
+  "com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle": {
+    "default": { "titleFont": "white", "titleFontColor": "white" }
+  }
+}
