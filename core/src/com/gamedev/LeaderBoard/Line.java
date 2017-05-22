@@ -8,6 +8,8 @@ import com.gamedev.graphics.TableGraphics;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.gamedev.Strings.*;
+
 public class Line extends Actor{
 
     private Label lable;
@@ -23,7 +25,7 @@ public class Line extends Actor{
 
         Label.LabelStyle ls = new Label.LabelStyle();
         ls.font = tableGraphics.getFont();
-        ls.background = tableGraphics.getSkin().getDrawable("platform");
+        ls.background = tableGraphics.getSkin().getDrawable(text_field);
 
         lable = new Label(data.get(0), ls);
         lable.setAlignment(1, 1);

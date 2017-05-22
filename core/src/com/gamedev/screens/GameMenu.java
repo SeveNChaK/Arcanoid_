@@ -5,12 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -39,8 +37,8 @@ public class GameMenu implements Screen{
 
     @Override
     public void show() {
-        //camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        //camera.setToOrtho(false, CAMERA_WIDTH, CAMERA_HEIGHT);
+        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.setToOrtho(false, CAMERA_WIDTH, CAMERA_HEIGHT);
         //camera.position.set(new Vector3(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2,0));
 
         batch = new SpriteBatch();
@@ -50,7 +48,7 @@ public class GameMenu implements Screen{
         buttonStyle = new ButtonStyle(gameGraphics);
 
         play = new TextButton("PLAY", buttonStyle.playStyle());
-        play.setStyle(buttonStyle.pauseStyle());
+        //play.setStyle(buttonStyle.pauseStyle());
         play.setBounds(GAME_WIDTH / 2 - 100, GAME_HEIGHT / 2 - 25, 200, 50);
 
         exit = new TextButton("EXIT", buttonStyle.exitStyle());
@@ -59,8 +57,8 @@ public class GameMenu implements Screen{
         records = new TextButton("RECORDS", buttonStyle.recordStyle());
         records.setBounds(GAME_WIDTH / 2 - 100, GAME_HEIGHT / 2 - 50 * 2 - 10, 200, 50);
 
-        //stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera));
-        stage = new Stage();
+        stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera));
+        //stage = new Stage();
         stage.addActor(play);
         stage.addActor(exit);
         stage.addActor(records);

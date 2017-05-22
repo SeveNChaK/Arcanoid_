@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -43,6 +44,7 @@ public class GameScreen implements Screen {
     private Body platform, ball, gameBox;
     private List<Body> bricks = new ArrayList<Body>();
     private GameOver gameOver;
+    private GamePause gamePause;
 
     private ObjectManager objectManager;
 
@@ -74,8 +76,9 @@ public class GameScreen implements Screen {
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, CAMERA_WIDTH, CAMERA_HEIGHT);
+        //camera.position.set(new Vector3(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2,0));
 
-        stage = new Stage(new FitViewport(CAMERA_WIDTH, CAMERA_HEIGHT, camera));
+        stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera));
         //stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
@@ -92,17 +95,17 @@ public class GameScreen implements Screen {
         gameBox = objectManager.getGameBox();
 
         float preY = 0;
-        for (int j = 0; j < 7; j++) {
-            int countBrickInLine = random(6, 11);
-            float space = (float) ((800 - (countBrickInLine * BRICK_WIDTH * 2)) / (countBrickInLine + 1));
+        for (int j = 0; j < 6; j++) {
+            int countBrickInLine = random(6, 10);
+            float space = (float) ((80 - (countBrickInLine * BRICK_WIDTH * 2)) / (countBrickInLine + 1));
             List<Body> brickLine = new ArrayList<Body>();
             float preX = space + BRICK_WIDTH;
             if (preY == 0) {
-                brickLine.add(objectManager.getBrick(preX, 230.3f, 0f));
-                preY = 230.3f + 75.2f;
+                brickLine.add(objectManager.getBrick(preX, 38.5f, 0f));
+                preY = 38.5f + 4f;
             } else {
                 brickLine.add(objectManager.getBrick(preX, preY, 0f));
-                preY = preY + 75.2f;
+                preY = preY + 4f;
             }
             for (int i = 1; i < countBrickInLine; i++) {
                 brickLine.add(
@@ -114,13 +117,17 @@ public class GameScreen implements Screen {
         }
 
         gameOver = new GameOver(game, gameGraphics);
-        gameOver.show(stage);
+        //gameOver.show(stage);
+
+        gamePause = new GamePause(this, game, gameGraphics);
+        gamePause.show(stage);
 
         records = JsonUtils.loadRecords("saves.json");
 
         gameScreenStyle = new GameScreenStyle(gameGraphics);
 
         font = gameScreenStyle.font();
+
     }
 
     @Override
@@ -135,11 +142,11 @@ public class GameScreen implements Screen {
         if (count - pastCount == 6 || Gdx.input.isKeyPressed(Input.Keys.L)) {
             pastCount += 6;
 
-            int countBrickInLine = random(6, 11);
-            float space = (float) ((800 - (countBrickInLine * BRICK_WIDTH * 2)) / (countBrickInLine + 1));
+            int countBrickInLine = random(6, 10);
+            float space = (float) ((80 - (countBrickInLine * BRICK_WIDTH * 2)) / (countBrickInLine + 1));
             List<Body> brickLine = new ArrayList<Body>();
             float preX = space + BRICK_WIDTH;
-            brickLine.add(objectManager.getBrick(preX, CAMERA_HEIGHT + 0.2f + BRICK_HEIGHT, 0f));
+            brickLine.add(objectManager.getBrick(preX, CAMERA_HEIGHT + 1f + BRICK_HEIGHT, 0f));
             for (int i = 1; i < countBrickInLine; i++) {
                 brickLine.add(
                         objectManager.getBrick(brickLine.get(i - 1).getPosition().x,
@@ -148,14 +155,14 @@ public class GameScreen implements Screen {
             }
             bricks.addAll(brickLine);
             for (Body b : bricks) {
-                b.setTransform(b.getPosition().x, b.getPosition().y - 75.2f, b.getAngle());
+                b.setTransform(b.getPosition().x, b.getPosition().y - 4f, b.getAngle());
             }
         }
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         renderer.render(world, camera.combined);
-        world.step(delta, 4, 4);
+        world.step(delta, 6, 2);
         camera.update();
 
         batch.begin();
@@ -171,13 +178,26 @@ public class GameScreen implements Screen {
         font.draw(batch, "" + count, 4, 550);
         batch.end();
 
-        if (ball.getPosition().y < -3  && state == PLAY ) {
+        if (ball.getPosition().y < -2  && state == PLAY ) {
             ball.setLinearVelocity(0, 0);
             ball.setAngularVelocity(0);
-            state = PAUSE;
+            state = GAME_OVER;
+            objectManager.setState(state);
         }
-        if (state == PAUSE) {
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+            state = PAUSE;
+            ball.setLinearVelocity(0, 0);
+            ball.setAngularVelocity(0);
+            objectManager.setState(state);
+        }
+
+        if (state == GAME_OVER) {
             gameOver.render(this, delta);
+        }
+
+        if (state == PAUSE) {
+            gamePause.render(delta);
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.S)){
@@ -208,7 +228,6 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
         JsonUtils.saveRecords(records);
-
         world.destroyBody(ball);
         world.destroyBody(platform);
         for (int i = 0; i < bricks.size(); i++)
@@ -233,5 +252,9 @@ public class GameScreen implements Screen {
 
     public SpriteBatch getBatch() {
         return batch;
+    }
+
+    public void setState(GameState state) {
+        this.state = state;
     }
 }

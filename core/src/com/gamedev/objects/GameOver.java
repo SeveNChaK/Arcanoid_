@@ -55,6 +55,7 @@ public class GameOver {
         textField = new TextField("", gameOverStyle.textFieldStyle());
         textField.setBounds(200, 220, 400, 60);
         textField.setMaxLength(15);
+        textField.setAlignment(1);
         textField.setMessageText("Write name");
         textField.setTextFieldListener(new TextField.TextFieldListener() {
             @Override

@@ -52,4 +52,8 @@ public class ObjectManager {
     public Body getGameBox() {
         return gameBox.creatGameBox(world);
     }
+
+    public void setState(GameState state) {
+        this.state = state;
+    }
 }

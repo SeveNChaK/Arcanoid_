@@ -22,13 +22,13 @@ public class GameOverStyle {
     public TextField.TextFieldStyle textFieldStyle(){
         FreeTypeFontGenerator gen = new FreeTypeFontGenerator(Gdx.files.internal(font));
         FreeTypeFontGenerator.FreeTypeFontParameter p = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        p.color = Color.BLACK;
+        p.color = Color.WHITE;
         p.size = 50;
         BitmapFont font = gen.generateFont(p);
 
         TextField.TextFieldStyle textFieldStyle = new TextField.TextFieldStyle();
         textFieldStyle.font = font;
-        textFieldStyle.fontColor = Color.BLUE;
+        textFieldStyle.fontColor = Color.WHITE;
         textFieldStyle.background = gameGraphics.getSkin().getDrawable(text_field); //
         textFieldStyle.cursor = gameGraphics.getSkin().getDrawable(text_pointer);
 
@@ -44,7 +44,7 @@ public class GameOverStyle {
 
         Window.WindowStyle windowStyle = new Window.WindowStyle();
         windowStyle.titleFont = font;
-        windowStyle.background = gameGraphics.getSkin().getDrawable(dialog); //
+        windowStyle.background = gameGraphics.getSkin().getDrawable(dialog);
 
         return windowStyle;
     }
@@ -52,7 +52,7 @@ public class GameOverStyle {
     public Label.LabelStyle labelStyle(){
         FreeTypeFontGenerator gen = new FreeTypeFontGenerator(Gdx.files.internal(font));
         FreeTypeFontGenerator.FreeTypeFontParameter p = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        p.color = Color.BLACK;
+        p.color = Color.WHITE;
         p.size = 70;
         BitmapFont font = gen.generateFont(p);
 

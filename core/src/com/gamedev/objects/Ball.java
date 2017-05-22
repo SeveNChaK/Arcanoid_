@@ -53,7 +53,6 @@ public class Ball {
             }
             if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
                 if (!clickSpace) {
-                    body.setAngularVelocity(10);
                     body.setLinearVelocity(BALL_SPEED, BALL_SPEED);
                 }
                 clickSpace = true;
@@ -71,7 +70,7 @@ public class Ball {
 
     private void reposition(Body body) {
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            if (body.getPosition().x + PLATFORM_SPEED <= 800 - PLTFORM_WIDTH) {
+            if (body.getPosition().x + PLATFORM_SPEED <= 80 - PLTFORM_WIDTH) {
                 body.setTransform(body.getPosition().x + PLATFORM_SPEED, body.getPosition().y, 0);
             }
         }

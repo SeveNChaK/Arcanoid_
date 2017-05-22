@@ -64,8 +64,8 @@ public class Platform {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             body.setTransform(body.getPosition().x - PLATFORM_SPEED, body.getPosition().y, 0);
         }
-        if (body.getPosition().x > 800 - PLTFORM_WIDTH) {
-            body.setTransform(800 - PLTFORM_WIDTH, body.getPosition().y, 0);
+        if (body.getPosition().x > 80 - PLTFORM_WIDTH) {
+            body.setTransform(80 - PLTFORM_WIDTH, body.getPosition().y, 0);
         }
         if (body.getPosition().x < 0 + PLTFORM_WIDTH) {
             body.setTransform(0 + PLTFORM_WIDTH, body.getPosition().y, 0);

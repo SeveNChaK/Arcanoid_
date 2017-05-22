@@ -41,11 +41,11 @@ public class MyContactListener implements ContactListener {
 
         if (contact.getFixtureA() != null && contact.getFixtureA().getUserData() != null && contact.getFixtureA().getUserData().equals("PLATFORM"))
         {
-            correct = Math.abs(contact.getFixtureA().getBody().getPosition().x - contact.getFixtureB().getBody().getPosition().x);
+            correct = Math.abs(contact.getFixtureA().getBody().getPosition().x - contact.getFixtureB().getBody().getPosition().x) * 2;
         }
 
         if (contact.getFixtureB() != null && contact.getFixtureB().getUserData() != null && contact.getFixtureB().getUserData().equals("PLATFORM")) {
-            correct = Math.abs(contact.getFixtureA().getBody().getPosition().x - contact.getFixtureB().getBody().getPosition().x);
+            correct = Math.abs(contact.getFixtureA().getBody().getPosition().x - contact.getFixtureB().getBody().getPosition().x) * 2;
         }
     }
 
