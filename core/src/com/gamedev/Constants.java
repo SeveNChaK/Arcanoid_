@@ -24,5 +24,5 @@ public class Constants {
     public static final float BALL_RADIUS = 0.8f;
     public static final float BALL_START_POSITION_X = 20;
     public static final float BALL_START_POSITION_Y = 2.5f;
-    public static final float BALL_SPEED = 20f;
+    public static  float BALL_SPEED = 20f;
 }

@@ -60,4 +60,8 @@ public class MyContactListener implements ContactListener {
     public float getCorrect() {
         return correct;
     }
+
+    public void setCorrect(float correct) {
+        this.correct = correct;
+    }
 }

@@ -44,7 +44,6 @@ public class GameScreen implements Screen {
     private Body platform, ball, gameBox;
     private List<Body> bricks = new ArrayList<Body>();
     private GameOver gameOver;
-    private GamePause gamePause;
 
     private ObjectManager objectManager;
 
@@ -57,6 +56,9 @@ public class GameScreen implements Screen {
 
     private long count = 0;
     private long pastCount = count;
+    private int countBrickInLine = 0;
+
+    private int bonusSpeed = 0;
 
     private List<List<String>> records = new ArrayList<List<String>>();
 
@@ -116,11 +118,8 @@ public class GameScreen implements Screen {
             bricks.addAll(brickLine);
         }
 
-        gameOver = new GameOver(game, gameGraphics);
-        //gameOver.show(stage);
-
-        gamePause = new GamePause(this, game, gameGraphics);
-        gamePause.show(stage);
+        gameOver = new GameOver(this, game, gameGraphics);
+        gameOver.show(stage);
 
         records = JsonUtils.loadRecords("saves.json");
 
@@ -139,10 +138,10 @@ public class GameScreen implements Screen {
             count++;
         }
 
-        if (count - pastCount == 6 || Gdx.input.isKeyPressed(Input.Keys.L)) {
-            pastCount += 6;
+        if (count - pastCount == countBrickInLine || Gdx.input.isKeyPressed(Input.Keys.L)) {
+            pastCount += countBrickInLine;
 
-            int countBrickInLine = random(6, 10);
+            countBrickInLine = random(6, 10);
             float space = (float) ((80 - (countBrickInLine * BRICK_WIDTH * 2)) / (countBrickInLine + 1));
             List<Body> brickLine = new ArrayList<Body>();
             float preX = space + BRICK_WIDTH;
@@ -157,6 +156,7 @@ public class GameScreen implements Screen {
             for (Body b : bricks) {
                 b.setTransform(b.getPosition().x, b.getPosition().y - 4f, b.getAngle());
             }
+            BALL_SPEED++;
         }
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -186,23 +186,20 @@ public class GameScreen implements Screen {
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
-            state = PAUSE;
-            ball.setLinearVelocity(0, 0);
-            ball.setAngularVelocity(0);
-            objectManager.setState(state);
+//            state = PAUSE;
+//            ball.setLinearVelocity(0, 0);
+//            ball.setAngularVelocity(0);
+//            objectManager.setState(state);
+            System.out.println(ball.getLinearVelocity());
         }
 
         if (state == GAME_OVER) {
             gameOver.render(this, delta);
         }
 
-        if (state == PAUSE) {
-            gamePause.render(delta);
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.S)){
-            System.out.println(ball.getLinearVelocity());
-        }
+//        if (Gdx.input.isKeyJustPressed(Input.Keys.S)){
+//            System.out.println(ball.getLinearVelocity());
+//        }
     }
 
     @Override
@@ -236,6 +233,7 @@ public class GameScreen implements Screen {
         renderer.dispose();
         batch.dispose();
         world.dispose();
+        BALL_SPEED = 20f;
     }
 
     public long getCount() {

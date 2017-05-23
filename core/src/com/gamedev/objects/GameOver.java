@@ -19,17 +19,21 @@ import java.util.ArrayList;
 public class GameOver {
     private Game game;
     private GameGraphics gameGraphics;
+    private GameScreen gameScreen;
 
     private final StringBuilder stringBuilder = new StringBuilder();
 
     private GameOverStyle gameOverStyle;
 
+    private boolean click = false;
+
     private Dialog dialog;
     private TextField textField;
 
-    public GameOver(Game game, GameGraphics gameGraphics) {
+    public GameOver(GameScreen gameScreen, Game game, GameGraphics gameGraphics) {
         this.game = game;
         this.gameGraphics = gameGraphics;
+        this.gameScreen = gameScreen;
     }
 
     public void show(Stage stage) {
@@ -41,8 +45,10 @@ public class GameOver {
             protected void result(Object object) {
                 if ((Boolean) object) {
                     hide();
+                    save();
                     game.setScreen(new GameScreen(game, gameGraphics));
                 } else {
+                    save();
                     game.setScreen(new GameMenu(game, gameGraphics));
                 }
             }
@@ -50,6 +56,7 @@ public class GameOver {
         dialog.button("Menu", false, gameOverStyle.textButtonStyle());
         dialog.button("Restart", true, gameOverStyle.textButtonStyle());
         dialog.text("You lose", gameOverStyle.labelStyle());
+        dialog.getButtonTable().setVisible(false);
         dialog.show(stage);
 
         textField = new TextField("", gameOverStyle.textFieldStyle());
@@ -72,13 +79,20 @@ public class GameOver {
         gameScreen.getBatch().begin();
         textField.draw(gameScreen.getBatch(), 1f);
         gameScreen.getBatch().end();
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ALT_LEFT)) {
-            java.util.List<String> l = new ArrayList<String>();
-            l.add(textField.getText());
-            l.add("" + gameScreen.getCount());
-            System.out.println(textField.getText());
-            gameScreen.getRecords().add(l);
+        if (!textField.getText().equals("")) {
+            dialog.getButtonTable().setVisible(true);
         }
+    }
+
+    private void save() {
+
+        java.util.List<String> l = new ArrayList<String>();
+        if (textField.getText().equals("")) {
+            textField.setText("No name");
+        }
+        l.add(textField.getText());
+        l.add("" + gameScreen.getCount());
+        System.out.println(textField.getText());
+        gameScreen.getRecords().add(l);
     }
 }
