@@ -17,8 +17,6 @@ import com.gamedev.styles.GameOverStyle;
 import java.util.ArrayList;
 
 public class GameOver {
-    private Game game;
-    private GameGraphics gameGraphics;
     private GameScreen gameScreen;
 
     private final StringBuilder stringBuilder = new StringBuilder();
@@ -30,14 +28,12 @@ public class GameOver {
     private Dialog dialog;
     private TextField textField;
 
-    public GameOver(GameScreen gameScreen, Game game, GameGraphics gameGraphics) {
-        this.game = game;
-        this.gameGraphics = gameGraphics;
+    public GameOver(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
     }
 
     public void show(Stage stage) {
-        gameOverStyle = new GameOverStyle(gameGraphics);
+        gameOverStyle = new GameOverStyle(gameScreen.getGameGraphics());
 
         dialog = new Dialog("", gameOverStyle.windowStyle()) {
 
@@ -46,10 +42,10 @@ public class GameOver {
                 if ((Boolean) object) {
                     hide();
                     save();
-                    game.setScreen(new GameScreen(game, gameGraphics));
+                    gameScreen.getGame().setScreen(new GameScreen(gameScreen.getGame(), gameScreen.getGameGraphics()));
                 } else {
                     save();
-                    game.setScreen(new GameMenu(game, gameGraphics));
+                    gameScreen.getGame().setScreen(new GameMenu(gameScreen.getGame(), gameScreen.getGameGraphics()));
                 }
             }
         };
@@ -85,7 +81,6 @@ public class GameOver {
     }
 
     private void save() {
-
         java.util.List<String> l = new ArrayList<String>();
         if (textField.getText().equals("")) {
             textField.setText("No name");

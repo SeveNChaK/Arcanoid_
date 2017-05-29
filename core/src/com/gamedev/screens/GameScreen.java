@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -118,7 +117,7 @@ public class GameScreen implements Screen {
             bricks.addAll(brickLine);
         }
 
-        gameOver = new GameOver(this, game, gameGraphics);
+        gameOver = new GameOver(this);
         gameOver.show(stage);
 
         records = JsonUtils.loadRecords("saves.json");
@@ -254,5 +253,13 @@ public class GameScreen implements Screen {
 
     public void setState(GameState state) {
         this.state = state;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public GameGraphics getGameGraphics() {
+        return gameGraphics;
     }
 }
