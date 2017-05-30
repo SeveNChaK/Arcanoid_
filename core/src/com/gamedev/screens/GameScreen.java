@@ -57,7 +57,7 @@ public class GameScreen implements Screen {
     private long pastCount = count;
     private int countBrickInLine = 0;
 
-    private int bonusSpeed = 0;
+    //private int bonusSpeed = 0;
 
     private List<List<String>> records = new ArrayList<List<String>>();
 
@@ -137,7 +137,7 @@ public class GameScreen implements Screen {
             count++;
         }
 
-        if (count - pastCount == countBrickInLine || Gdx.input.isKeyPressed(Input.Keys.L)) {
+        if (count - pastCount == countBrickInLine) {
             pastCount += countBrickInLine;
 
             countBrickInLine = random(6, 10);

@@ -10,6 +10,7 @@ public class DesktopLauncher {
 		config.width = 800;
 		config.height = 600;
 		config.title = "Arcanoid";
+		config.resizable = false;
 		new LwjglApplication(new Arcanoid(), config);
 	}
 }
